@@ -1,0 +1,2 @@
+El número de personas debe ser mayor a 0.
+El número de personas debe ser mayor a 0.

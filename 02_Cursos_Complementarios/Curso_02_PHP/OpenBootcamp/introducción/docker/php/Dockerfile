@@ -1,36 +1,31 @@
-FROM php:8-fpm-buster
+FROM php:8.4-fpm
 
-ARG TIMEZONE
+ARG TIMEZONE=Europe/Madrid
 
 # Usar la configuración de producción por defecto
 COPY ./php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y git unzip \
-    && pecl install \
-        apcu \
-        xdebug \
-        redis \
-    && docker-php-ext-enable \
-        apcu \
-        xdebug \
-        redis
+# Instalar dependencias del sistema y extensiones de PHP
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    && pecl install apcu xdebug redis \
+    && docker-php-ext-enable apcu xdebug redis \
+    && docker-php-ext-install pdo pdo_mysql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensiones de PHP (Escribe docker-php-ext-install para ver las extensiones disponibles)
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Obtener la versión más reciente de Composer
+# Obtener Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configurar la zona horaria del sistema
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-RUN printf '[PHP]\ndate.timezone = "%s"\n' ${TIMEZONE} > /usr/local/etc/php/conf.d/t...
-RUN "date"
+# Configurar la zona horaria del sistema y PHP
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && printf '[PHP]\ndate.timezone = "%s"\n' ${TIMEZONE} > /usr/local/etc/php/conf.d/timezone.ini
 
-# Activar la extensión PHP XDebug para depuración de código
+# Configuración de Xdebug
 COPY ./xdebug.ini /tmp/xdebug.ini
-RUN cat /tmp/xdebug.ini >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN rm /tmp/xdebug.ini
+RUN cat /tmp/xdebug.ini >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && rm /tmp/xdebug.ini
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecer directorio de trabajo
 WORKDIR /var/www

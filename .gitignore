@@ -1,1 +1,17 @@
+# 1. Dependencias globales
 node_modules/
+vendor/
+
+# 2. Configuración y credenciales del proyecto de Docker/PHP
+.env
+.env.local
+
+# 3. Datos de Docker y Logs (sirve para cualquier subcarpeta)
+**/mysql/
+**/log/**/*.log
+
+# 4. Archivos temporales de sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

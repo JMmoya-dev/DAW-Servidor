@@ -1,0 +1,31 @@
+/* Quitamos márgenes para que el footer pegue bien a los bordes */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    background-color: #f0f0f0;
+}
+
+.contenedor {
+    flex: 1;
+    /* Esto estira el div y empuja el footer al fondo */
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: center;
+    /* Centra horizontalmente */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.contenedor {
+    text-align: center;
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    /* Pone los elementos uno debajo de otro */
+    width: 250px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 8px;
+}

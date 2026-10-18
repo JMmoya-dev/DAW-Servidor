@@ -18,7 +18,7 @@
 </head>
 
 <body>
-
+s
 
     <?php
     echo "Ejercicio 1 <br>";

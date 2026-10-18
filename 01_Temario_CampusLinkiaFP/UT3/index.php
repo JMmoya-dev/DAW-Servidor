@@ -1,62 +1,67 @@
-<!--UT3/index.php - Formulario principal de captura de datos-->
+<?php
 
+/**
+ * UT3: Funcionalidades dinámicas y mantenimiento de estado
+ * Formulario de entrada con lectura de estado de sesión
+ */
 
+require_once 'includes/sesion.php';
+
+// 2. Inicio o recuperación de la sesión existente
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro - UT3</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/formulario.css">
-    <title>UT3 - Registro de Usuario</title>
 </head>
 
 <body>
 
     <header>
-        <h1>Gestión de Estado y Formularios - UT3</h1>
+        <h1>Formulario de Registro</h1>
+        <?php if (isset($_SESSION['usuario'])): ?>
+            <!-- Lectura de datos persistidos en sesión -->
+            <p>Bienvenido/a de nuevo, <strong><?= htmlspecialchars($_SESSION['usuario']['nombre'], ENT_QUOTES, 'UTF-8') ?></strong>.</p>
+        <?php endif; ?>
     </header>
 
     <main>
-        <!-- Formulario enviado por método POST a procesar.php -->
-        <form action="procesar.php" method="POST">
-
-            <!-- Campo de Texto (Nombre) -->
+        <form action="procesar.php" method="post">
             <p>
-                <label for="nombre">Nombre completo:</label><br>
-                <input type="text" id="nombre" name="nombre" placeholder="Ej. Jose Mª" required>
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($_SESSION['usuario']['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
             </p>
 
-            <!-- Selección Única con Radio Button (Estudios) -->
             <p>
-                <label>Nivel de estudios:</label><br>
-                <input type="radio" id="estudio_medio" name="estudios" value="medio" required>
-                <label for="estudio_medio">Grado Medio</label><br>
-
-                <input type="radio" id="estudio_superior" name="estudios" value="superior">
-                <label for="estudio_superior">Grado Superior</label>
-            </p>
-
-            <!-- Menú Desplegable con Select (Turno) -->
-            <p>
-                <label for="turno">Turno preferido:</label><br>
-                <select id="turno" name="turno" required>
-                    <option value="" disabled selected>Selecciona un turno</option>
-                    <option value="manana">Mañana</option>
-                    <option value="tarde">Tarde</option>
+                <label for="estudios">Nivel de estudios:</label>
+                <select id="estudios" name="estudios">
+                    <option value="">-- Selecciona una opción --</option>
+                    <option value="grado_medio" <?= ($_SESSION['usuario']['estudios'] ?? '') === 'grado_medio' ? 'selected' : '' ?>>CF Grado Medio</option>
+                    <option value="grado_superior" <?= ($_SESSION['usuario']['estudios'] ?? '') === 'grado_superior' ? 'selected' : '' ?>>CF Grado Superior</option>
                 </select>
             </p>
 
-            <!-- Casilla de Verificación Checkbox (Términos) -->
             <p>
-                <input type="checkbox" id="acepto" name="acepto" value="si" required>
+                <span>Turno de preferencia:</span><br>
+                <input type="radio" id="mañana" name="turno" value="mañana" <?= ($_SESSION['usuario']['turno'] ?? '') === 'mañana' ? 'checked' : '' ?>>
+                <label for="mañana">Mañana</label>
+
+                <input type="radio" id="tarde" name="turno" value="tarde" <?= ($_SESSION['usuario']['turno'] ?? '') === 'tarde' ? 'checked' : '' ?>>
+                <label for="tarde">Tarde</label>
+            </p>
+
+            <p>
+                <input type="checkbox" id="acepto" name="acepto" value="si" <?= ($_SESSION['usuario']['acepto'] ?? '') === 'si' ? 'checked' : '' ?>>
                 <label for="acepto">Acepto los términos y condiciones</label>
             </p>
 
-            <!-- Botón de Envío -->
             <button type="submit">Enviar datos</button>
-
         </form>
     </main>
 

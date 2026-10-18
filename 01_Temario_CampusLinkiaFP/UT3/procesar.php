@@ -1,18 +1,25 @@
 <?php
-// UT3/procesar.php - Captura, validación y respuesta de la Actividad 1 y 2
 
-// 1. Captura de datos mediante filter_input (Buenas prácticas de DAW)
+/**
+ * UT3: Funcionalidades dinámicas y mantenimiento de estado
+ * Procesamiento de formulario y gestión de sesión segura
+ */
+
+// 2. Inicio de sesión y regeneración de identificador
+
+require_once 'includes/sesion.php';
+
+session_regenerate_id(true); // Protección frente a fijación de sesión
+
+// 3. Captura y saneamiento de datos de entrada
 $nombre   = trim(filter_input(INPUT_POST, 'nombre') ?? '');
 $estudios = filter_input(INPUT_POST, 'estudios') ?? '';
 $turno    = filter_input(INPUT_POST, 'turno') ?? '';
 $acepto   = filter_input(INPUT_POST, 'acepto') ?? '';
 
-// Array para recopilar mensajes de error
 $errores = [];
 
-// 2. Validaciones en servidor (Presencia y coincidencia de valores)
-
-// Validación del nombre (obligatorio y solo letras con tildes y espacios)
+// 4. Validaciones de datos en servidor
 if (empty($nombre)) {
     $errores[] = 'El campo nombre es obligatorio.';
 } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre)) {
@@ -30,6 +37,17 @@ if (empty($turno)) {
 if ($acepto !== 'si') {
     $errores[] = 'Debes aceptar los términos y condiciones.';
 }
+
+// 5. Almacenamiento en sesión tras validación correcta
+// 5. Almacenamiento en sesión tras validación correcta
+if (empty($errores)) {
+    $_SESSION['usuario'] = [
+        'nombre'   => $nombre,
+        'estudios' => $estudios,
+        'turno'    => $turno,
+        'acepto'   => $acepto
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,7 +55,7 @@ if ($acepto !== 'si') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado del Formulario</title>
+    <title>Resultado del Procesamiento</title>
     <link rel="stylesheet" href="css/base.css">
 </head>
 
@@ -49,7 +67,7 @@ if ($acepto !== 'si') {
 
     <main>
         <?php if (!empty($errores)): ?>
-            <!-- Bloque de respuesta ante errores de validación -->
+            <!-- Muestra de errores de validación -->
             <h2>Errores detectados en la petición:</h2>
             <ul>
                 <?php foreach ($errores as $error): ?>
@@ -59,13 +77,13 @@ if ($acepto !== 'si') {
             <p><a href="index.php">Volver al formulario</a></p>
 
         <?php else: ?>
-            <!-- Bloque de respuesta correcta con escape de salida XSS -->
-            <h2>Datos procesados correctamente:</h2>
-            <p>Nombre: <?= htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') ?></p>
-            <p>Estudios: <?= htmlspecialchars($estudios, ENT_QUOTES, 'UTF-8') ?></p>
-            <p>Turno: <?= htmlspecialchars($turno, ENT_QUOTES, 'UTF-8') ?></p>
+            <!-- Muestra de datos persistidos en la sesión -->
+            <h2>Datos procesados y guardados en sesión:</h2>
+            <p>Nombre: <?= htmlspecialchars($_SESSION['usuario']['nombre'], ENT_QUOTES, 'UTF-8') ?></p>
+            <p>Estudios: <?= htmlspecialchars($_SESSION['usuario']['estudios'], ENT_QUOTES, 'UTF-8') ?></p>
+            <p>Turno: <?= htmlspecialchars($_SESSION['usuario']['turno'], ENT_QUOTES, 'UTF-8') ?></p>
 
-            <p><a href="index.php">Enviar otra solicitud</a></p>
+            <p><a href="index.php">Volver al formulario</a></p>
         <?php endif; ?>
     </main>
 

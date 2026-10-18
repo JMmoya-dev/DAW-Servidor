@@ -1,0 +1,57 @@
+/* UT3/css/base.css - Centrado general en pantalla */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background-color: whitesmoke;
+    color: darkslategrey;
+    padding: 20px;
+
+    /* Centra la tarjeta en el medio exacto del navegador */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header,
+main {
+    width: 100%;
+    max-width: 650px;
+    margin-bottom: 20px;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+}
+
+h1,
+h2 {
+    margin-bottom: 15px;
+    color: navy;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+a {
+    color: steelblue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

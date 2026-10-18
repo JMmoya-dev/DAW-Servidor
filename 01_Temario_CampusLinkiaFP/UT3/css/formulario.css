@@ -1,0 +1,32 @@
+/* UT3/css/formulario.css - Estilo interno del formulario */
+
+form p {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid silver;
+    border-radius: 4px;
+}
+
+button {
+    background-color: steelblue;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: dodgerblue;
+}

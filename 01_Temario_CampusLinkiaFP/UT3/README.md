@@ -8,10 +8,6 @@ Aplicación web modular en PHP para la gestión de formularios dinámicos, persi
 
 - [Características](#características)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Requisitos previos](#requisitos-previos)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Medidas de Seguridad](#medidas-de-seguridad)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Licencia](#licencia)
 

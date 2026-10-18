@@ -26,13 +26,15 @@ require_once 'includes/sesion.php';
     <header>
         <h1>Formulario de Registro</h1>
         <?php if (isset($_SESSION['usuario'])): ?>
-            <!-- Lectura de datos persistidos en sesión -->
+            <!-- Muestra el mensaje de bienvenida y la opción de cerrar sesión -->
             <p>Bienvenido/a de nuevo, <strong><?= htmlspecialchars($_SESSION['usuario']['nombre'], ENT_QUOTES, 'UTF-8') ?></strong>.</p>
+            <p><a href="logout.php">Cerrar sesión / Limpiar datos</a></p>
         <?php endif; ?>
     </header>
 
     <main>
         <form action="procesar.php" method="post">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
             <p>
                 <label for="nombre">Nombre completo:</label>
                 <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($_SESSION['usuario']['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>">

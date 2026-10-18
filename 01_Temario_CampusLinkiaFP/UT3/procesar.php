@@ -5,11 +5,8 @@
  * Procesamiento de formulario y gestión de sesión segura
  */
 
-// 2. Inicio de sesión y regeneración de identificador
-
+// 2. Carga e inicio de la configuración de sesión centralizada
 require_once 'includes/sesion.php';
-
-session_regenerate_id(true); // Protección frente a fijación de sesión
 
 // 3. Captura y saneamiento de datos de entrada
 $nombre   = trim(filter_input(INPUT_POST, 'nombre') ?? '');
@@ -18,6 +15,13 @@ $turno    = filter_input(INPUT_POST, 'turno') ?? '';
 $acepto   = filter_input(INPUT_POST, 'acepto') ?? '';
 
 $errores = [];
+
+// Captura y validación del token Anti-CSRF
+$token_recibido = filter_input(INPUT_POST, 'csrf_token') ?? '';
+
+if (empty($token_recibido) || !hash_equals($_SESSION['csrf_token'] ?? '', $token_recibido)) {
+    $errores[] = 'Petición no válida o caducada (error CSRF).';
+}
 
 // 4. Validaciones de datos en servidor
 if (empty($nombre)) {
@@ -38,7 +42,6 @@ if ($acepto !== 'si') {
     $errores[] = 'Debes aceptar los términos y condiciones.';
 }
 
-// 5. Almacenamiento en sesión tras validación correcta
 // 5. Almacenamiento en sesión tras validación correcta
 if (empty($errores)) {
     $_SESSION['usuario'] = [
@@ -81,7 +84,7 @@ if (empty($errores)) {
             <h2>Datos procesados y guardados en sesión:</h2>
             <p>Nombre: <?= htmlspecialchars($_SESSION['usuario']['nombre'], ENT_QUOTES, 'UTF-8') ?></p>
             <p>Estudios: <?= htmlspecialchars($_SESSION['usuario']['estudios'], ENT_QUOTES, 'UTF-8') ?></p>
-            <p>Turno: <?= htmlspecialchars($_SESSION['usuario']['turno'], ENT_QUOTES, 'UTF-8') ?></p>
+            <p>Turno: <?= htmlspecialchars($_SESSION['usuario']['turno'] === 'mañana' ? 'Mañana' : 'Tarde', ENT_QUOTES, 'UTF-8') ?></p>
 
             <p><a href="index.php">Volver al formulario</a></p>
         <?php endif; ?>

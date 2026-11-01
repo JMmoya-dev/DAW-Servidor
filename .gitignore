@@ -1,16 +1,20 @@
-# 1. Dependencias globales
+# 1. Dependencias (se regeneran con "npm install" y "composer install")
 node_modules/
 vendor/
 
-# 2. Configuración y credenciales del proyecto de Docker/PHP
+# 2. Configuración y credenciales (el .env.example sí se sube)
 .env
-.env.local
+.env.*
+!.env.example
 
-# 3. Datos de Docker y Logs (sirve para cualquier subcarpeta)
+# 3. Caché generada por Blade (se regenera sola al abrir la página)
+cache/
+
+# 4. Datos de Docker y logs
 **/mysql/
-**/log/**/*.log
+*.log
 
-# 4. Archivos temporales de sistema y editores
+# 5. Archivos temporales de sistema y editores
 .DS_Store
 Thumbs.db
 .vscode/

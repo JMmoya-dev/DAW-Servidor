@@ -19,6 +19,10 @@
     </header>
 
     <main>
+                {{-- mensaje de éxito que manda el controlador con ->with() --}}
+        @if (session('success'))
+            <p class="mensaje">{{ session('success') }}</p>
+        @endif
         {{-- Aquí va el contenido de cada página --}}
         @yield('contenido')
     </main>

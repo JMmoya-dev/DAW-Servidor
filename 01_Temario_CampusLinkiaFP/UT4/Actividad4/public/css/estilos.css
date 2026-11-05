@@ -1,0 +1,139 @@
+/* página centrada */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    color: black;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+header {
+    background-color: #D9257C;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+}
+
+/* menú */
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* contenido */
+main {
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+h2 {
+    color: #D9257C;
+}
+
+/* tabla del listado */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th {
+    background-color: #D9257C;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid whitesmoke;
+}
+
+tr:hover {
+    background-color: whitesmoke;
+}
+
+/* lista del detalle */
+ul {
+    list-style: none;
+    padding: 0;
+    line-height: 2;
+}
+
+/* enlaces y botones */
+a {
+    color: #D9257C;
+}
+
+.boton {
+    display: inline-block;
+    background-color: #D9257C;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.boton:hover {
+    background-color: dimgrey;
+}
+
+/* formularios */
+form {
+    display: inline-block;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 250px;
+    padding: 6px;
+    margin-top: 5px;
+    border: 1px solid silver;
+    border-radius: 4px;
+}
+
+/* mensajes de error y de éxito */
+.error {
+    color: crimson;
+    font-size: 13px;
+}
+
+.mensaje {
+    background-color: honeydew;
+    color: seagreen;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+footer {
+    text-align: center;
+    color: dimgrey;
+    margin-top: 20px;
+    font-size: 13px;
+}

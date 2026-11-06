@@ -24,3 +24,7 @@ Route::post('/componentes', [ControladorComponente::class, 'guardar'])->name('co
 
 // dinámica: muestra un componente según su id
 Route::get('/componentes/{id}', [ControladorComponente::class, 'mostrar'])->name('componentes.mostrar');
+
+
+// dinámica DELETE: borra un componente según su id
+Route::delete('/componentes/{id}', [ControladorComponente::class, 'eliminar'])->name('componentes.eliminar');

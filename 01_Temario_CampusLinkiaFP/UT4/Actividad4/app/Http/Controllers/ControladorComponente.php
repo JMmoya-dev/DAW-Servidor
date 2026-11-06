@@ -83,4 +83,20 @@ class ControladorComponente extends Controller
 
         return redirect()->route('componentes.listar')->with('success', 'Componente creado correctamente.');
     }
+
+    /**
+     * Borra un componente por su id.
+     *
+     * @param mixed $id
+     * @return RedirectResponse
+     */
+    public function eliminar($id): RedirectResponse
+    {
+        // primero compruebo que existe (si no, error 404)
+        $componente = Componente::findOrFail($id);
+
+        $componente->delete();
+
+        return redirect()->route('componentes.listar')->with('success', 'Componente eliminado correctamente.');
+    }
 }

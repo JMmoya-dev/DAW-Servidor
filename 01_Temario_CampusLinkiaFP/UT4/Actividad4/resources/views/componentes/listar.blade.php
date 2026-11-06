@@ -30,6 +30,13 @@
                         <td>
                             {{-- enlace a la ruta dinámica con el id --}}
                             <a href="{{ route('componentes.mostrar', $componente->id) }}" class="boton">Ver</a>
+
+                            {{-- los formularios no envían DELETE, por eso uso @method --}}
+                            <form action="{{ route('componentes.eliminar', $componente->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="boton">Borrar</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

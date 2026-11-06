@@ -22,9 +22,12 @@ Route::get('/componentes/crear', [ControladorComponente::class, 'crear'])->name(
 Route::post('/componentes', [ControladorComponente::class, 'guardar'])->name('componentes.guardar');
 
 
-// dinámica: muestra un componente según su id
-Route::get('/componentes/{id}', [ControladorComponente::class, 'mostrar'])->name('componentes.mostrar');
+// rutas dinámicas con {id}: pasan antes por el middleware creado alias
+Route::middleware(['comprobar.id'])->group(function () {
 
+    // GET: muestra un componente según su id
+    Route::get('/componentes/{id}', [ControladorComponente::class, 'mostrar'])->name('componentes.mostrar');
 
-// dinámica DELETE: borra un componente según su id
-Route::delete('/componentes/{id}', [ControladorComponente::class, 'eliminar'])->name('componentes.eliminar');
+    // DELETE: borra un componente según su id
+    Route::delete('/componentes/{id}', [ControladorComponente::class, 'eliminar'])->name('componentes.eliminar');
+});

@@ -1,0 +1,43 @@
+/* Tabla de componentes: borde simple */
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid grey;
+    padding: 6px 10px;
+}
+
+/* barra de paginación */
+.paginacion {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 15px;
+}
+
+/* enlaces y página actual con forma de botón */
+.paginacion a,
+.paginacion span {
+    padding: 5px 10px;
+    border: 1px solid #D9257C;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.paginacion a {
+    color: #D9257C;
+    background-color: white;
+}
+
+.paginacion a:hover {
+    background-color: lavenderblush;
+}
+
+/* página actual resaltada */
+.paginacion .actual {
+    color: white;
+    background-color: #D9257C;
+    font-weight: bold;
+}

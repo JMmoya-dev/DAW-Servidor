@@ -1,0 +1,10 @@
+/* Tabla de componentes: borde simple */
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid grey;
+    padding: 6px 10px;
+}
